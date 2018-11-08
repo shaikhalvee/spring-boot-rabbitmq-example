@@ -29,8 +29,7 @@ public class ProductServiceImpl implements ProductService {
     private RabbitTemplate rabbitTemplate;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ProductFormToProduct productFormToProduct,
-                              RabbitTemplate rabbitTemplate) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductFormToProduct productFormToProduct, RabbitTemplate rabbitTemplate) {
         this.productRepository = productRepository;
         this.productFormToProduct = productFormToProduct;
         this.rabbitTemplate = rabbitTemplate;
@@ -71,9 +70,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void sendProductMessage(String id) {
-        Map<String, String> actionmap = new HashMap<>();
-        actionmap.put("id", id);
+        Map<String, String> actionMap = new HashMap<>();
+        actionMap.put("id", id);
         log.info("Sending the index request through queue message");
-        rabbitTemplate.convertAndSend(SpringBootRabbitMQApplication.SFG_MESSAGE_QUEUE, actionmap);
+        rabbitTemplate.convertAndSend(SpringBootRabbitMQApplication.SFG_MESSAGE_QUEUE, actionMap);
     }
 }

@@ -32,6 +32,11 @@ public class SpringBootRabbitMQApplication {
 		return BindingBuilder.bind(queue).to(exchange).with(SFG_MESSAGE_QUEUE);
 	}
 
+	/**
+	 * @param connectionFactory connection configuration maintenance
+	 * @param listenerAdapter   messageListener created by us
+	 * @return container
+	 */
 	@Bean
 	SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
 	MessageListenerAdapter listenerAdapter) {
@@ -42,6 +47,7 @@ public class SpringBootRabbitMQApplication {
 		return container;
 	}
 
+	// this method is injected in message container. And message listener class is returned here
 	@Bean
 	MessageListenerAdapter listenerAdapter(ProductMessageListener receiver) {
 		return new MessageListenerAdapter(receiver, "receiveMessage");
